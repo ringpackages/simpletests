@@ -23,11 +23,11 @@ class Benchmark
 				   :opsPerSec = 1 / nPerIter]
 		add(results, aResult)
 
-		see SYM_BENCH + " " + C_CYAN + cName + C_RESET +
-			C_DIM + " -- " + nIterations + " iterations" + C_RESET + nl
-		see "      Total: " + ringtest_formatBenchTime(nTotal) +
+		? SYM_BENCH + " " + C_CYAN + cName + C_RESET +
+			C_DIM + " -- " + nIterations + " iterations" + C_RESET 
+		? "      Total: " + ringtest_formatBenchTime(nTotal) +
 			" | Avg: " + ringtest_formatBenchTime(nPerIter) +
-			" | " + floor(1/nPerIter) + " ops/sec" + nl
+			" | " + floor(1/nPerIter) + " ops/sec" 
 
 		return aResult
 
@@ -41,12 +41,12 @@ class Benchmark
 		? ""
 		if r1[:avgTime] < r2[:avgTime]
 			nFactor = r2[:avgTime] / r1[:avgTime]
-			see C_GREEN + "  -> " + cName1 + " is " +
-				ringtest_round(nFactor, 2) + "x faster" + C_RESET + nl
+			? C_GREEN + "  -> " + cName1 + " is " +
+				ringtest_round(nFactor, 2) + "x faster" + C_RESET
 		else
 			nFactor = r1[:avgTime] / r2[:avgTime]
-			see C_GREEN + "  -> " + cName2 + " is " +
-				ringtest_round(nFactor, 2) + "x faster" + C_RESET + nl
+			? C_GREEN + "  -> " + cName2 + " is " +
+				ringtest_round(nFactor, 2) + "x faster" + C_RESET
 		ok
 		? ""
 
