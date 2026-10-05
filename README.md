@@ -57,17 +57,17 @@
 load "simpletests.ring"
 
 new TestSuite("My Suite") {
-    addTest("Math works", "testMath")
-    run()
+	addTest("Math works", "testMath")
+	run()
 }
 
 func testMath
 
-    new Assert {
-        assertEqual(2 + 2, 4)
-        assertTrue(10 > 5)
-        assertContains("Hello Ring", "Ring")
-    }
+	new Assert {
+		assertEqual(2 + 2, 4)
+		assertTrue(10 > 5)
+		assertContains("Hello Ring", "Ring")
+	}
 ```
 
 ---
@@ -86,6 +86,7 @@ suite.afterEach("testTeardown")
 # Settings
 suite.setVerbose(true)
 suite.setOutputFormat("text")   # "text", "json", or "tap"
+suite.skipAllTests("Reason")    # Report every test as skipped
 ```
 
 ---
@@ -105,14 +106,14 @@ suite.run()
 ```ring
 # Statements
 suite.addParameterizedTest("Multiply", "testMultiply", [
-    [2, 3, 6], [0, 100, 0], [-1, 5, -5]
+	[2, 3, 6], [0, 100, 0], [-1, 5, -5]
 ])
 suite.run()
 
 # Functions
 func testMultiply aParams
-    assert = new Assert
-    assert.assertEqual(aParams[1] * aParams[2], aParams[3])
+	assert = new Assert
+	assert.assertEqual(aParams[1] * aParams[2], aParams[3])
 ```
 
 ### Skipped & Expected Failures
@@ -127,8 +128,8 @@ suite.addExpectedFailure("Issue #99", "testBroken", "Known regression")
 ```ring
 aGroup = []
 add(aGroup, [:name = "Insert", :func = "testInsert",
-    :tags = [], :skip = false, :skipMsg = "",
-    :xfail = false, :timeout = 0, :params = []])
+	:tags = [], :skip = false, :skipMsg = "",
+	:xfail = false, :timeout = 0, :params = []])
 suite.addGroup("Database Tests", aGroup)
 ```
 
@@ -145,7 +146,12 @@ result2 = mock.invokeWithArgs(["USD", 99.99])  # returns false
 assert = new Assert
 assert.assertTrue(mock.wasCalled())
 assert.assertTrue(mock.wasCalledTimes(2))
-mock.resetMock()
+
+? mock.cName                        # PaymentGateway
+? mock.getCallCount()               # 2
+aCall = mock.getCall(2)             # [:callNum = 2, :args = ["USD", 99.99], :timestamp = ...]
+aLast = mock.getLastCall()          # Same as getCall(2) here
+mock.resetMock()                    # Clears calls and call count (keeps return values)
 ```
 
 ### Benchmarking
