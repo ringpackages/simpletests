@@ -120,11 +120,13 @@ class TestSuite
 			done
 		ok
 
-		for i = 1 to len(tests)
+		nTests = len(tests)
+		for i = 1 to nTests
 			runSingleTest(tests[i], "")
 		next
 
-		for nG = 1 to len(groups)
+		nGroups = len(groups)
+		for nG = 1 to nGroups
 			aGroup = groups[nG]
 			cGName = aGroup[:name]
 			if lVerbose
@@ -132,7 +134,8 @@ class TestSuite
 				? C_BOLD + C_CYAN + "  +-- Group: " + cGName + C_RESET
 			ok
 			aGTests = aGroup[:tests]
-			for nT = 1 to len(aGTests)
+			nGTests = len(aGTests)
+			for nT = 1 to nGTests
 				runSingleTest(aGTests[nT], cGName)
 			next
 			if lVerbose
@@ -359,14 +362,15 @@ class TestSuite
 		cJSON += '  "skipped": ' + skipCount + ',' + nl
 		cJSON += '  "duration": ' + totalDuration + ',' + nl
 		cJSON += '  "tests": [' + nl
-		for i = 1 to len(results)
+		nResults = len(results)
+		for i = 1 to nResults
 			oRes = results[i]
 			cJSON += '    {' + nl
 			cJSON += '      "name": "' + ringtest_escapeJSON(oRes.name) + '",' + nl
 			cJSON += '      "status": "' + oRes.statusText() + '",' + nl
 			cJSON += '      "duration": ' + oRes.duration + ',' + nl
 			cJSON += '      "message": "' + ringtest_escapeJSON(oRes.message) + '"' + nl
-			if i < len(results)
+			if i < nResults
 				cJSON += '    },' + nl
 			else
 				cJSON += '    }' + nl

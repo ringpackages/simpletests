@@ -8,7 +8,8 @@
 
 func ringtest_list2str aList
 	cResult = ""
-	for i = 1 to len(aList)
+	nLen = len(aList)
+	for i = 1 to nLen
 		if isString(aList[i])
 			cResult += '"' + aList[i] + '"'
 		elseif isNumber(aList[i])
@@ -16,7 +17,7 @@ func ringtest_list2str aList
 		else
 			cResult += "?"
 		ok
-		if i < len(aList)
+		if i < nLen
 			cResult += ", "
 		ok
 	next

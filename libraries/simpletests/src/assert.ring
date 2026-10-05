@@ -157,11 +157,13 @@ class Assert
 		ok
 
 	func assertListEqual aActual, aExpected
-		if len(aActual) != len(aExpected)
+		nLen = len(aActual)
+		nExpectedLen = len(aExpected)
+		if nLen != nExpectedLen
 			raise("[assertListEqual] List lengths differ: " +
-				len(aActual) + " vs " + len(aExpected))
+				nLen + " vs " + nExpectedLen)
 		ok
-		for i = 1 to len(aActual)
+		for i = 1 to nLen
 			if aActual[i] != aExpected[i]
 				raise("[assertListEqual] Mismatch at index " + i +
 					": " + ringtest_str(aActual[i]) +
@@ -188,7 +190,8 @@ class Assert
 		ok
 
 	func assertListSorted aList
-		for i = 1 to len(aList) - 1
+		nLen = len(aList) - 1
+		for i = 1 to nLen
 			if aList[i] > aList[i+1]
 				raise("[assertListSorted] List not sorted at index " + i +
 					": " + ringtest_str(aList[i]) +
