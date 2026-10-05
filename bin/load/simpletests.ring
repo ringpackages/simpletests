@@ -1,0 +1,1 @@
+load "../../libraries/simpletests/simpletests.ring"
