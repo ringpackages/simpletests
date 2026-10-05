@@ -4,6 +4,7 @@
 
 ## Table of Contents
 
+- [Install](#install)
 - [Features](#features)
 - [Quick Start](#quick-start)
 - [Suite Configuration](#suite-configuration)
@@ -25,6 +26,13 @@
   - [Exceptions](#exceptions)
   - [Custom](#custom)
 - [License](#license)
+
+---
+
+## Install
+
+
+	ringpm install simpletests from ringpackages
 
 ---
 
