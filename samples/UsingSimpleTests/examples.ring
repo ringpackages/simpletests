@@ -63,13 +63,13 @@ suite.run()
 
 # --- Benchmark Demo ---
 
-see nl + C_BOLD + C_MAGENTA + "  === Benchmark Demo ===" + C_RESET + nl + nl
+? nl + C_BOLD + C_MAGENTA + "  === Benchmark Demo ===" + C_RESET + nl
 
 bench = new Benchmark
 bench.measure("String Concatenation", "benchConcat", 10000)
 bench.measure("List Append",          "benchListAppend", 10000)
 
-see nl
+? ""
 
 bench.compare(
 	"String +",    "benchConcat",
@@ -79,7 +79,7 @@ bench.compare(
 
 # --- Mock Demo ---
 
-see nl + C_BOLD + C_MAGENTA + "  === Mock Object Demo ===" + C_RESET + nl + nl
+? nl + C_BOLD + C_MAGENTA + "  === Mock Object Demo ===" + C_RESET + nl
 
 mockDb = new Mock("DatabaseService")
 mockDb.setReturn(true)
@@ -95,8 +95,8 @@ oAssert.assertTrue(mockDb.wasCalledTimes(2))
 oAssert.assertEqual(result1, true)
 oAssert.assertEqual(result2, false)
 
-see C_GREEN + "  + Mock assertions passed" + C_RESET + nl
-see C_DIM + "    Mock '" + mockDb.name + "' was called " + mockDb.getCallCount() + " times" + C_RESET + nl + nl
+? C_GREEN + "  + Mock assertions passed" + C_RESET
+? C_DIM + "    Mock '" + mockDb.name + "' was called " + mockDb.getCallCount() + " times" + C_RESET + nl
 
 # --- Test Functions ---
 
@@ -197,10 +197,10 @@ func myTeardown
 	# Called after each test
 
 func mySuiteSetup
-	see C_DIM + "  [Suite initialized]" + C_RESET + nl
+	? C_DIM + "  [Suite initialized]" + C_RESET
 
 func mySuiteTeardown
-	see C_DIM + "  [Suite complete]" + C_RESET + nl
+	? C_DIM + "  [Suite complete]" + C_RESET
 
 # --- Benchmark Functions ---
 

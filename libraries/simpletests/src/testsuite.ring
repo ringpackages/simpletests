@@ -116,7 +116,7 @@ class TestSuite
 			try
 				call cBeforeAll()
 			catch
-				see C_RED + "  beforeAll hook failed: " + cCatchError + C_RESET + nl
+				? C_RED + "  beforeAll hook failed: " + cCatchError + C_RESET
 			done
 		ok
 
@@ -128,15 +128,15 @@ class TestSuite
 			aGroup = groups[nG]
 			cGName = aGroup[:name]
 			if lVerbose
-				see nl
-				see C_BOLD + C_CYAN + "  +-- Group: " + cGName + C_RESET + nl
+				? ""
+				? C_BOLD + C_CYAN + "  +-- Group: " + cGName + C_RESET
 			ok
 			aGTests = aGroup[:tests]
 			for nT = 1 to len(aGTests)
 				runSingleTest(aGTests[nT], cGName)
 			next
 			if lVerbose
-				see C_CYAN + "  +---------------" + C_RESET + nl
+				? C_CYAN + "  +---------------" + C_RESET
 			ok
 		next
 
@@ -144,7 +144,7 @@ class TestSuite
 			try
 				call cAfterAll()
 			catch
-				see C_RED + "  afterAll hook failed: " + cCatchError + C_RESET + nl
+				? C_RED + "  afterAll hook failed: " + cCatchError + C_RESET
 			done
 		ok
 
@@ -253,7 +253,7 @@ class TestSuite
 			try
 				call cAfterEach()
 			catch
-				see C_YELLOW + "  afterEach hook failed: " + cCatchError + C_RESET + nl
+				? C_YELLOW + "  afterEach hook failed: " + cCatchError + C_RESET
 			done
 		ok
 
@@ -263,12 +263,12 @@ class TestSuite
 	# ---- Output Helpers ----
 
 	func printHeader
-		see nl
-		see C_BOLD + C_MAGENTA + "  ==============================================" + C_RESET + nl
-		see C_BOLD + C_MAGENTA + "   RingTest v" + RINGTEST_VERSION + C_RESET + nl
-		see C_BOLD + C_MAGENTA + "   Suite: " + name + C_RESET + nl
-		see C_BOLD + C_MAGENTA + "  ==============================================" + C_RESET + nl
-		see nl
+		? ""
+		? C_BOLD + C_MAGENTA + "  ==============================================" + C_RESET
+		? C_BOLD + C_MAGENTA + "   RingTest v" + RINGTEST_VERSION + C_RESET
+		? C_BOLD + C_MAGENTA + "   Suite: " + name + C_RESET
+		? C_BOLD + C_MAGENTA + "  ==============================================" + C_RESET
+		? ""
 
 	func printResult oResult, cGroup
 		if !lVerbose return ok
@@ -293,57 +293,57 @@ class TestSuite
 			cLine += C_DIM + " (expected)" + C_RESET
 		ok
 
-		see cLine + nl
+		? cLine
 
 	func printSummary
-		see nl
-		see C_BOLD + "  ==============================================" + C_RESET + nl
-		see C_BOLD + "  Results: " + name + C_RESET + nl
-		see C_BOLD + "  ----------------------------------------------" + C_RESET + nl
+		? ""
+		? C_BOLD + "  ==============================================" + C_RESET
+		? C_BOLD + "  Results: " + name + C_RESET
+		? C_BOLD + "  ----------------------------------------------" + C_RESET
 
 		cPassLine = C_GREEN + "  Passed:  " + passCount
 		if xfailCount > 0
 			cPassLine += " (includes " + xfailCount + " expected failures)"
 		ok
-		see cPassLine + C_RESET + nl
+		? cPassLine + C_RESET
 
 		if failCount > 0
-			see C_RED + "  Failed:  " + failCount + C_RESET + nl
+			? C_RED + "  Failed:  " + failCount + C_RESET
 		else
-			see C_DIM + "  Failed:  0" + C_RESET + nl
+			? C_DIM + "  Failed:  0" + C_RESET
 		ok
 
 		if errorCount > 0
-			see C_RED + "  Errors:  " + errorCount + C_RESET + nl
+			? C_RED + "  Errors:  " + errorCount + C_RESET
 		else
-			see C_DIM + "  Errors:  0" + C_RESET + nl
+			? C_DIM + "  Errors:  0" + C_RESET
 		ok
 
 		if skipCount > 0
-			see C_YELLOW + "  Skipped: " + skipCount + C_RESET + nl
+			? C_YELLOW + "  Skipped: " + skipCount + C_RESET
 		else
-			see C_DIM + "  Skipped: 0" + C_RESET + nl
+			? C_DIM + "  Skipped: 0" + C_RESET
 		ok
 
-		see C_DIM + "  Total:   " + totalTests + C_RESET + nl
-		see C_DIM + "  Time:    " + ringtest_formatDuration(totalDuration) + C_RESET + nl
-		see C_BOLD + "  ==============================================" + C_RESET + nl
+		? C_DIM + "  Total:   " + totalTests + C_RESET
+		? C_DIM + "  Time:    " + ringtest_formatDuration(totalDuration) + C_RESET
+		? C_BOLD + "  ==============================================" + C_RESET
 
 		if failCount = 0 and errorCount = 0
-			see nl
-			see C_BOLD + C_GREEN + "  * All tests passed! *" + C_RESET + nl
+			? ""
+			? C_BOLD + C_GREEN + "  * All tests passed! *" + C_RESET
 		else
-			see nl
-			see C_BOLD + C_RED + "  x Some tests failed." + C_RESET + nl
-			see nl
-			see C_BOLD + C_RED + "  Failed tests:" + C_RESET + nl
+			? ""
+			? C_BOLD + C_RED + "  x Some tests failed." + C_RESET
+			? ""
+			? C_BOLD + C_RED + "  Failed tests:" + C_RESET
 			for oRes in results
 				if oRes.status = TEST_FAIL or oRes.status = TEST_ERROR
-					see C_RED + "    - " + oRes.name + ": " + oRes.message + C_RESET + nl
+					? C_RED + "    - " + oRes.name + ": " + oRes.message + C_RESET
 				ok
 			next
 		ok
-		see nl
+		? ""
 
 	# ---- JSON Report ----
 
@@ -374,33 +374,33 @@ class TestSuite
 		next
 		cJSON += '  ]' + nl
 		cJSON += '}'
-		see C_DIM + "  --- JSON Report ---" + C_RESET + nl
-		see cJSON + nl
+		? C_DIM + "  --- JSON Report ---" + C_RESET
+		? cJSON
 
 	# ---- TAP Report ----
 
 	func printTAPReport
-		see "TAP version 13" + nl
-		see "1.." + totalTests + nl
+		? "TAP version 13"
+		? "1.." + totalTests
 		nIdx = 0
 		for oRes in results
 			nIdx++
 			if oRes.status = TEST_PASS
-				see "ok " + nIdx + " - " + oRes.name + nl
+				? "ok " + nIdx + " - " + oRes.name
 			elseif oRes.status = TEST_FAIL
-				see "not ok " + nIdx + " - " + oRes.name + nl
-				see "  ---" + nl
-				see "  message: " + oRes.message + nl
-				see "  ..." + nl
+				? "not ok " + nIdx + " - " + oRes.name
+				? "  ---"
+				? "  message: " + oRes.message
+				? "  ..."
 			elseif oRes.status = TEST_SKIP
-				see "ok " + nIdx + " - " + oRes.name + " # SKIP " + oRes.message + nl
+				? "ok " + nIdx + " - " + oRes.name + " # SKIP " + oRes.message
 			elseif oRes.status = TEST_ERROR
-				see "not ok " + nIdx + " - " + oRes.name + " # ERROR" + nl
-				see "  ---" + nl
-				see "  message: " + oRes.message + nl
-				see "  ..." + nl
+				? "not ok " + nIdx + " - " + oRes.name + " # ERROR"
+				? "  ---"
+				? "  message: " + oRes.message
+				? "  ..."
 			elseif oRes.status = TEST_EXPECTED_FAIL
-				see "ok " + nIdx + " - " + oRes.name + " # TODO expected failure" + nl
+				? "ok " + nIdx + " - " + oRes.name + " # TODO expected failure"
 			ok
 		next
 
