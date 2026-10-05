@@ -4,37 +4,37 @@
 
 class TestSuite
 
-	name           = "Default Suite"
-	tests          = []
-	groups         = []
-	results        = []
+	cName           = "Default Suite"
+	aTests          = []
+	aGroups         = []
+	aResults        = []
 
-	cBeforeAll     = ""
-	cAfterAll      = ""
-	cBeforeEach    = ""
-	cAfterEach     = ""
+	cBeforeAll      = ""
+	cAfterAll       = ""
+	cBeforeEach     = ""
+	cAfterEach      = ""
 
-	tags           = []
-	filterTags     = []
-	lSkipAll       = false
-	skipReason     = ""
+	aTags           = []
+	aFilterTags     = []
+	lSkipAll        = false
+	cSkipReason     = ""
 
-	totalTests     = 0
-	passCount      = 0
-	failCount      = 0
-	skipCount      = 0
-	errorCount     = 0
-	xfailCount     = 0
-	totalDuration  = 0
+	nTotalTests     = 0
+	nPassCount      = 0
+	nFailCount      = 0
+	nSkipCount      = 0
+	nErrorCount     = 0
+	nXfailCount     = 0
+	nTotalDuration  = 0
 
-	outputFormat   = "text"
-	lVerbose       = true
-	lColorEnabled  = true
+	cOutputFormat   = "text"
+	lVerbose        = true
+	lColorEnabled   = true
 
 	# ---- Configuration ----
 
-	func init cName
-		name = cName
+	func init cSuiteName
+		cName = cSuiteName
 		return self
 
 	func setVerbose lFlag
@@ -44,14 +44,14 @@ class TestSuite
 		lColorEnabled = lFlag
 
 	func setOutputFormat cFormat
-		outputFormat = lower(cFormat)
+		cOutputFormat = lower(cFormat)
 
-	func setFilterTags aTags
-		filterTags = aTags
+	func setFilterTags aTagList
+		aFilterTags = aTagList
 
 	func skipAllTests cReason
 		lSkipAll   = true
-		skipReason = cReason
+		cSkipReason = cReason
 
 	# ---- Hooks ----
 
@@ -73,22 +73,22 @@ class TestSuite
 		aTest = [:name = cName, :func = cFunc, :tags = [],
 				 :skip = false, :skipMsg = "", :xfail = false,
 				 :timeout = 0, :params = []]
-		add(tests, aTest)
+		add(aTests, aTest)
 
-	func addTestWithTags cName, cFunc, aTags
+	func addTestWithTags cName, cFunc, aTagList
 		addTest(cName, cFunc)
-		tests[len(tests)][:tags] = aTags
+		aTests[len(aTests)][:tags] = aTagList
 
 	func addSkippedTest cName, cReason
 		aTest = [:name = cName, :func = "", :tags = [],
 				 :skip = true, :skipMsg = cReason, :xfail = false,
 				 :timeout = 0, :params = []]
-		add(tests, aTest)
+		add(aTests, aTest)
 
 	func addExpectedFailure cName, cFunc, cReason
 		addTest(cName, cFunc)
-		tests[len(tests)][:xfail] = true
-		tests[len(tests)][:skipMsg] = cReason
+		aTests[len(aTests)][:xfail] = true
+		aTests[len(aTests)][:skipMsg] = cReason
 
 	func addParameterizedTest cName, cFunc, aParamSets
 		for aParams in aParamSets
@@ -96,14 +96,14 @@ class TestSuite
 			aTest = [:name = cLabel, :func = cFunc, :tags = [],
 					 :skip = false, :skipMsg = "", :xfail = false,
 					 :timeout = 0, :params = aParams]
-			add(tests, aTest)
+			add(aTests, aTest)
 		next
 
 	# ---- Test Groups ----
 
 	func addGroup cGroupName, aGroupTests
 		aGroup = [:name = cGroupName, :tests = aGroupTests]
-		add(groups, aGroup)
+		add(aGroups, aGroup)
 
 	# ---- Run ----
 
@@ -120,14 +120,14 @@ class TestSuite
 			done
 		ok
 
-		nTests = len(tests)
+		nTests = len(aTests)
 		for i = 1 to nTests
-			runSingleTest(tests[i], "")
+			runSingleTest(aTests[i], "")
 		next
 
-		nGroups = len(groups)
+		nGroups = len(aGroups)
 		for nG = 1 to nGroups
-			aGroup = groups[nG]
+			aGroup = aGroups[nG]
 			cGName = aGroup[:name]
 			if lVerbose
 				? ""
@@ -151,45 +151,45 @@ class TestSuite
 			done
 		ok
 
-		totalDuration = (clock() - nStart) / clockspersecond()
+		nTotalDuration = (clock() - nStart) / clockspersecond()
 
 		printSummary()
 
-		if outputFormat = "json"
+		if cOutputFormat = "json"
 			printJSONReport()
 		ok
-		if outputFormat = "tap"
+		if cOutputFormat = "tap"
 			printTAPReport()
 		ok
 
 	# ---- Internal: Run a single test ----
 
 	func runSingleTest aTest, cGroup
-		totalTests++
+		nTotalTests++
 
 		oResult = new TestResult(aTest[:name])
-		oResult.suiteName = name
-		oResult.groupName = cGroup
+		oResult.cSuiteName = cName
+		oResult.cGroupName = cGroup
 
 		if lSkipAll
-			oResult.setSkip(skipReason)
-			add(results, oResult)
-			skipCount++
+			oResult.setSkip(cSkipReason)
+			add(aResults, oResult)
+			nSkipCount++
 			printResult(oResult, cGroup)
 			return
 		ok
 
 		if aTest[:skip]
 			oResult.setSkip(aTest[:skipMsg])
-			add(results, oResult)
-			skipCount++
+			add(aResults, oResult)
+			nSkipCount++
 			printResult(oResult, cGroup)
 			return
 		ok
 
-		if len(filterTags) > 0
+		if len(aFilterTags) > 0
 			lMatch = false
-			for cTag in filterTags
+			for cTag in aFilterTags
 				aTestTags = aTest[:tags]
 				for cTestTag in aTestTags
 					if lower(cTag) = lower(cTestTag)
@@ -199,8 +199,8 @@ class TestSuite
 			next
 			if !lMatch
 				oResult.setSkip("filtered out by tags")
-				add(results, oResult)
-				skipCount++
+				add(aResults, oResult)
+				nSkipCount++
 				if lVerbose
 					printResult(oResult, cGroup)
 				ok
@@ -213,8 +213,8 @@ class TestSuite
 				call cBeforeEach()
 			catch
 				oResult.setError("beforeEach failed: " + cCatchError)
-				add(results, oResult)
-				errorCount++
+				add(aResults, oResult)
+				nErrorCount++
 				printResult(oResult, cGroup)
 				return
 			done
@@ -235,22 +235,22 @@ class TestSuite
 
 			if lIsXfail
 				oResult.setFail("Expected failure but test passed: " + cXfailMsg)
-				failCount++
+				nFailCount++
 			else
 				oResult.setPass()
-				passCount++
+				nPassCount++
 			ok
 		catch
 			if lIsXfail
 				oResult.setExpectedFail(cXfailMsg + " (" + cCatchError + ")")
-				xfailCount++
-				passCount++
+				nXfailCount++
+				nPassCount++
 			else
 				oResult.setFail(cCatchError)
-				failCount++
+				nFailCount++
 			ok
 		done
-		oResult.duration = (clock() - nTestStart) / clockspersecond()
+		oResult.nDuration = (clock() - nTestStart) / clockspersecond()
 
 		if cAfterEach != ""
 			try
@@ -260,7 +260,7 @@ class TestSuite
 			done
 		ok
 
-		add(results, oResult)
+		add(aResults, oResult)
 		printResult(oResult, cGroup)
 
 	# ---- Output Helpers ----
@@ -269,7 +269,7 @@ class TestSuite
 		? ""
 		? C_BOLD + C_MAGENTA + "  ==============================================" + C_RESET
 		? C_BOLD + C_MAGENTA + "   RingTest v" + RINGTEST_VERSION + C_RESET
-		? C_BOLD + C_MAGENTA + "   Suite: " + name + C_RESET
+		? C_BOLD + C_MAGENTA + "   Suite: " + cName + C_RESET
 		? C_BOLD + C_MAGENTA + "  ==============================================" + C_RESET
 		? ""
 
@@ -282,17 +282,17 @@ class TestSuite
 		ok
 
 		cTime = ""
-		if oResult.duration > 0
-			cTime = C_DIM + " (" + ringtest_formatDuration(oResult.duration) + ")" + C_RESET
+		if oResult.nDuration > 0
+			cTime = C_DIM + " (" + ringtest_formatDuration(oResult.nDuration) + ")" + C_RESET
 		ok
 
-		cLine = cIndent + oResult.statusSymbol() + " " + oResult.name + cTime
+		cLine = cIndent + oResult.statusSymbol() + " " + oResult.cName + cTime
 
-		if oResult.status = TEST_FAIL or oResult.status = TEST_ERROR
-			cLine += nl + cIndent + "  " + C_RED + oResult.message + C_RESET
-		elseif oResult.status = TEST_SKIP
-			cLine += C_DIM + " -- " + oResult.message + C_RESET
-		elseif oResult.status = TEST_EXPECTED_FAIL
+		if oResult.nStatus = TEST_FAIL or oResult.nStatus = TEST_ERROR
+			cLine += nl + cIndent + "  " + C_RED + oResult.cMessage + C_RESET
+		elseif oResult.nStatus = TEST_SKIP
+			cLine += C_DIM + " -- " + oResult.cMessage + C_RESET
+		elseif oResult.nStatus = TEST_EXPECTED_FAIL
 			cLine += C_DIM + " (expected)" + C_RESET
 		ok
 
@@ -301,38 +301,38 @@ class TestSuite
 	func printSummary
 		? ""
 		? C_BOLD + "  ==============================================" + C_RESET
-		? C_BOLD + "  Results: " + name + C_RESET
+		? C_BOLD + "  Results: " + cName + C_RESET
 		? C_BOLD + "  ----------------------------------------------" + C_RESET
 
-		cPassLine = C_GREEN + "  Passed:  " + passCount
-		if xfailCount > 0
-			cPassLine += " (includes " + xfailCount + " expected failures)"
+		cPassLine = C_GREEN + "  Passed:  " + nPassCount
+		if nXfailCount > 0
+			cPassLine += " (includes " + nXfailCount + " expected failures)"
 		ok
 		? cPassLine + C_RESET
 
-		if failCount > 0
-			? C_RED + "  Failed:  " + failCount + C_RESET
+		if nFailCount > 0
+			? C_RED + "  Failed:  " + nFailCount + C_RESET
 		else
 			? C_DIM + "  Failed:  0" + C_RESET
 		ok
 
-		if errorCount > 0
-			? C_RED + "  Errors:  " + errorCount + C_RESET
+		if nErrorCount > 0
+			? C_RED + "  Errors:  " + nErrorCount + C_RESET
 		else
 			? C_DIM + "  Errors:  0" + C_RESET
 		ok
 
-		if skipCount > 0
-			? C_YELLOW + "  Skipped: " + skipCount + C_RESET
+		if nSkipCount > 0
+			? C_YELLOW + "  Skipped: " + nSkipCount + C_RESET
 		else
 			? C_DIM + "  Skipped: 0" + C_RESET
 		ok
 
-		? C_DIM + "  Total:   " + totalTests + C_RESET
-		? C_DIM + "  Time:    " + ringtest_formatDuration(totalDuration) + C_RESET
+		? C_DIM + "  Total:   " + nTotalTests + C_RESET
+		? C_DIM + "  Time:    " + ringtest_formatDuration(nTotalDuration) + C_RESET
 		? C_BOLD + "  ==============================================" + C_RESET
 
-		if failCount = 0 and errorCount = 0
+		if nFailCount = 0 and nErrorCount = 0
 			? ""
 			? C_BOLD + C_GREEN + "  * All tests passed! *" + C_RESET
 		else
@@ -340,9 +340,9 @@ class TestSuite
 			? C_BOLD + C_RED + "  x Some tests failed." + C_RESET
 			? ""
 			? C_BOLD + C_RED + "  Failed tests:" + C_RESET
-			for oRes in results
-				if oRes.status = TEST_FAIL or oRes.status = TEST_ERROR
-					? C_RED + "    - " + oRes.name + ": " + oRes.message + C_RESET
+			for oRes in aResults
+				if oRes.nStatus = TEST_FAIL or oRes.nStatus = TEST_ERROR
+					? C_RED + "    - " + oRes.cName + ": " + oRes.cMessage + C_RESET
 				ok
 			next
 		ok
@@ -354,22 +354,22 @@ class TestSuite
 		cJSON = '{' + nl
 		cJSON += '  "framework": "RingTest",' + nl
 		cJSON += '  "version": "' + RINGTEST_VERSION + '",' + nl
-		cJSON += '  "suite": "' + name + '",' + nl
-		cJSON += '  "total": ' + totalTests + ',' + nl
-		cJSON += '  "passed": ' + passCount + ',' + nl
-		cJSON += '  "failed": ' + failCount + ',' + nl
-		cJSON += '  "errors": ' + errorCount + ',' + nl
-		cJSON += '  "skipped": ' + skipCount + ',' + nl
-		cJSON += '  "duration": ' + totalDuration + ',' + nl
+		cJSON += '  "suite": "' + cName + '",' + nl
+		cJSON += '  "total": ' + nTotalTests + ',' + nl
+		cJSON += '  "passed": ' + nPassCount + ',' + nl
+		cJSON += '  "failed": ' + nFailCount + ',' + nl
+		cJSON += '  "errors": ' + nErrorCount + ',' + nl
+		cJSON += '  "skipped": ' + nSkipCount + ',' + nl
+		cJSON += '  "duration": ' + nTotalDuration + ',' + nl
 		cJSON += '  "tests": [' + nl
-		nResults = len(results)
+		nResults = len(aResults)
 		for i = 1 to nResults
-			oRes = results[i]
+			oRes = aResults[i]
 			cJSON += '    {' + nl
-			cJSON += '      "name": "' + ringtest_escapeJSON(oRes.name) + '",' + nl
+			cJSON += '      "name": "' + ringtest_escapeJSON(oRes.cName) + '",' + nl
 			cJSON += '      "status": "' + oRes.statusText() + '",' + nl
-			cJSON += '      "duration": ' + oRes.duration + ',' + nl
-			cJSON += '      "message": "' + ringtest_escapeJSON(oRes.message) + '"' + nl
+			cJSON += '      "duration": ' + oRes.nDuration + ',' + nl
+			cJSON += '      "message": "' + ringtest_escapeJSON(oRes.cMessage) + '"' + nl
 			if i < nResults
 				cJSON += '    },' + nl
 			else
@@ -385,26 +385,26 @@ class TestSuite
 
 	func printTAPReport
 		? "TAP version 13"
-		? "1.." + totalTests
+		? "1.." + nTotalTests
 		nIdx = 0
-		for oRes in results
+		for oRes in aResults
 			nIdx++
-			if oRes.status = TEST_PASS
-				? "ok " + nIdx + " - " + oRes.name
-			elseif oRes.status = TEST_FAIL
-				? "not ok " + nIdx + " - " + oRes.name
+			if oRes.nStatus = TEST_PASS
+				? "ok " + nIdx + " - " + oRes.cName
+			elseif oRes.nStatus = TEST_FAIL
+				? "not ok " + nIdx + " - " + oRes.cName
 				? "  ---"
-				? "  message: " + oRes.message
+				? "  message: " + oRes.cMessage
 				? "  ..."
-			elseif oRes.status = TEST_SKIP
-				? "ok " + nIdx + " - " + oRes.name + " # SKIP " + oRes.message
-			elseif oRes.status = TEST_ERROR
-				? "not ok " + nIdx + " - " + oRes.name + " # ERROR"
+			elseif oRes.nStatus = TEST_SKIP
+				? "ok " + nIdx + " - " + oRes.cName + " # SKIP " + oRes.cMessage
+			elseif oRes.nStatus = TEST_ERROR
+				? "not ok " + nIdx + " - " + oRes.cName + " # ERROR"
 				? "  ---"
-				? "  message: " + oRes.message
+				? "  message: " + oRes.cMessage
 				? "  ..."
-			elseif oRes.status = TEST_EXPECTED_FAIL
-				? "ok " + nIdx + " - " + oRes.name + " # TODO expected failure"
+			elseif oRes.nStatus = TEST_EXPECTED_FAIL
+				? "ok " + nIdx + " - " + oRes.cName + " # TODO expected failure"
 			ok
 		next
 

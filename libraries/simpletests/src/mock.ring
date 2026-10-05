@@ -4,61 +4,61 @@
 
 class Mock
 
-	calls      = []
-	returnVals = []
-	callCount  = 0
-	name       = "mock"
+	aCalls      = []
+	aReturnVals = []
+	nCallCount  = 0
+	cName       = "mock"
 
-	func init cName
-		name = cName
+	func init cMockName
+		cName = cMockName
 		return self
 
 	func setReturn value
-		add(returnVals, value)
+		add(aReturnVals, value)
 
 	func invoke
-		callCount++
-		aCall = [:callNum = callCount, :timestamp = clock()]
-		add(calls, aCall)
-		if len(returnVals) >= callCount
-			return returnVals[callCount]
-		elseif len(returnVals) > 0
-			return returnVals[len(returnVals)]
+		nCallCount++
+		aCall = [:callNum = nCallCount, :timestamp = clock()]
+		add(aCalls, aCall)
+		if len(aReturnVals) >= nCallCount
+			return aReturnVals[nCallCount]
+		elseif len(aReturnVals) > 0
+			return aReturnVals[len(aReturnVals)]
 		ok
 		return NULL
 
 	func invokeWithArgs aArgs
-		callCount++
-		aCall = [:callNum = callCount, :args = aArgs, :timestamp = clock()]
-		add(calls, aCall)
-		if len(returnVals) >= callCount
-			return returnVals[callCount]
-		elseif len(returnVals) > 0
-			return returnVals[len(returnVals)]
+		nCallCount++
+		aCall = [:callNum = nCallCount, :args = aArgs, :timestamp = clock()]
+		add(aCalls, aCall)
+		if len(aReturnVals) >= nCallCount
+			return aReturnVals[nCallCount]
+		elseif len(aReturnVals) > 0
+			return aReturnVals[len(aReturnVals)]
 		ok
 		return NULL
 
 	func wasCalled
-		return callCount > 0
+		return nCallCount > 0
 
 	func wasCalledTimes nTimes
-		return callCount = nTimes
+		return nCallCount = nTimes
 
 	func getCallCount
-		return callCount
+		return nCallCount
 
 	func getCall nIndex
-		if nIndex > 0 and nIndex <= len(calls)
-			return calls[nIndex]
+		if nIndex > 0 and nIndex <= len(aCalls)
+			return aCalls[nIndex]
 		ok
 		return NULL
 
 	func getLastCall
-		if len(calls) > 0
-			return calls[len(calls)]
+		if len(aCalls) > 0
+			return aCalls[len(aCalls)]
 		ok
 		return NULL
 
 	func resetMock
-		calls     = []
-		callCount = 0
+		aCalls     = []
+		nCallCount = 0

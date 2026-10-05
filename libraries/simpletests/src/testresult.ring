@@ -4,55 +4,55 @@
 
 class TestResult
 
-	name         = ""
-	status       = TEST_PASS
-	message      = ""
-	duration     = 0
-	suiteName    = ""
-	groupName    = ""
-	tags         = []
+	cName         = ""
+	nStatus       = TEST_PASS
+	cMessage      = ""
+	nDuration     = 0
+	cSuiteName    = ""
+	cGroupName    = ""
+	aTags         = []
 
-	func init cName
-		name = cName
+	func init cTestName
+		cName = cTestName
 		return self
 
 	func setPass
-		status = TEST_PASS
+		nStatus = TEST_PASS
 
 	func setFail cMsg
-		status  = TEST_FAIL
-		message = cMsg
+		nStatus  = TEST_FAIL
+		cMessage = cMsg
 
 	func setSkip cMsg
-		status  = TEST_SKIP
-		message = cMsg
+		nStatus  = TEST_SKIP
+		cMessage = cMsg
 
 	func setError cMsg
-		status  = TEST_ERROR
-		message = cMsg
+		nStatus  = TEST_ERROR
+		cMessage = cMsg
 
 	func setExpectedFail cMsg
-		status  = TEST_EXPECTED_FAIL
-		message = cMsg
+		nStatus  = TEST_EXPECTED_FAIL
+		cMessage = cMsg
 
 	func isPassed
-		if status = TEST_PASS or status = TEST_EXPECTED_FAIL
+		if nStatus = TEST_PASS or nStatus = TEST_EXPECTED_FAIL
 			return true
 		ok
 		return false
 
 	func statusSymbol
-		if status = TEST_PASS return SYM_PASS ok
-		if status = TEST_FAIL return SYM_FAIL ok
-		if status = TEST_SKIP return SYM_SKIP ok
-		if status = TEST_ERROR return SYM_ERROR ok
-		if status = TEST_EXPECTED_FAIL return C_YELLOW + "+" + C_RESET ok
+		if nStatus = TEST_PASS return SYM_PASS ok
+		if nStatus = TEST_FAIL return SYM_FAIL ok
+		if nStatus = TEST_SKIP return SYM_SKIP ok
+		if nStatus = TEST_ERROR return SYM_ERROR ok
+		if nStatus = TEST_EXPECTED_FAIL return C_YELLOW + "+" + C_RESET ok
 		return "?"
 
 	func statusText
-		if status = TEST_PASS return "PASS" ok
-		if status = TEST_FAIL return "FAIL" ok
-		if status = TEST_SKIP return "SKIP" ok
-		if status = TEST_ERROR return "ERROR" ok
-		if status = TEST_EXPECTED_FAIL return "XFAIL" ok
+		if nStatus = TEST_PASS return "PASS" ok
+		if nStatus = TEST_FAIL return "FAIL" ok
+		if nStatus = TEST_SKIP return "SKIP" ok
+		if nStatus = TEST_ERROR return "ERROR" ok
+		if nStatus = TEST_EXPECTED_FAIL return "XFAIL" ok
 		return "UNKNOWN"

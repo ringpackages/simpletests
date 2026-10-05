@@ -96,7 +96,7 @@ oAssert.assertEqual(result1, true)
 oAssert.assertEqual(result2, false)
 
 ? C_GREEN + "  + Mock assertions passed" + C_RESET
-? C_DIM + "    Mock '" + mockDb.name + "' was called " + mockDb.getCallCount() + " times" + C_RESET + nl
+? C_DIM + "    Mock '" + mockDb.cName + "' was called " + mockDb.getCallCount() + " times" + C_RESET + nl
 
 # --- Test Functions ---
 

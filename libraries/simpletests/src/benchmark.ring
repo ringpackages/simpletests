@@ -4,7 +4,7 @@
 
 class Benchmark
 
-	results = []
+	aResults = []
 
 	func measure cName, cFunc, nIterations
 		if nIterations < 1 nIterations = 1 ok
@@ -21,7 +21,7 @@ class Benchmark
 		aResult = [:name = cName, :iterations = nIterations,
 				   :totalTime = nTotal, :avgTime = nPerIter,
 				   :opsPerSec = 1 / nPerIter]
-		add(results, aResult)
+		add(aResults, aResult)
 
 		? SYM_BENCH + " " + C_CYAN + cName + C_RESET +
 			C_DIM + " -- " + nIterations + " iterations" + C_RESET 
