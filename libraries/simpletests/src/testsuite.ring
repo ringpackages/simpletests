@@ -268,7 +268,7 @@ class TestSuite
 	func printHeader
 		? ""
 		? C_BOLD + C_MAGENTA + "  ==============================================" + C_RESET
-		? C_BOLD + C_MAGENTA + "   RingTest v" + RINGTEST_VERSION + C_RESET
+		? C_BOLD + C_MAGENTA + "   SimpleTests v" + RINGTEST_VERSION + C_RESET
 		? C_BOLD + C_MAGENTA + "   Suite: " + cName + C_RESET
 		? C_BOLD + C_MAGENTA + "  ==============================================" + C_RESET
 		? ""
@@ -352,7 +352,7 @@ class TestSuite
 
 	func printJSONReport
 		cJSON = '{' + nl
-		cJSON += '  "framework": "RingTest",' + nl
+		cJSON += '  "framework": "SimpleTests",' + nl
 		cJSON += '  "version": "' + RINGTEST_VERSION + '",' + nl
 		cJSON += '  "suite": "' + cName + '",' + nl
 		cJSON += '  "total": ' + nTotalTests + ',' + nl
