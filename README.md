@@ -2,6 +2,32 @@
 
 ---
 
+## Table of Contents
+
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Suite Configuration](#suite-configuration)
+- [Advanced Features](#advanced-features)
+  - [Tags & Filtering](#tags--filtering)
+  - [Parameterized Tests](#parameterized-tests)
+  - [Skipped & Expected Failures](#skipped--expected-failures)
+  - [Test Groups](#test-groups)
+  - [Mock Objects](#mock-objects)
+  - [Benchmarking](#benchmarking)
+- [Output Formats](#output-formats)
+- [Assertion Reference](#assertion-reference)
+  - [Equality](#equality)
+  - [Boolean](#boolean)
+  - [Null & Type](#null--type)
+  - [Numeric](#numeric)
+  - [String](#string)
+  - [List](#list)
+  - [Exceptions](#exceptions)
+  - [Custom](#custom)
+- [License](#license)
+
+---
+
 ## Features
 
 - **25+ Assertions** — Equality, boolean, numeric, string, list, type, exception, custom
