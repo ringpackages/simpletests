@@ -22,15 +22,18 @@
 ```ring
 load "simpletests.ring"
 
-suite = new TestSuite("My Suite")
-suite.addTest("Math works", "testMath")
-suite.run()
+new TestSuite("My Suite") {
+    addTest("Math works", "testMath")
+    run()
+}
 
 func testMath
-    assert = new Assert
-    assert.assertEqual(2 + 2, 4)
-    assert.assertTrue(10 > 5)
-    assert.assertContains("Hello Ring", "Ring")
+
+    new Assert {
+        assertEqual(2 + 2, 4)
+        assertTrue(10 > 5)
+        assertContains("Hello Ring", "Ring")
+    }
 ```
 
 ---

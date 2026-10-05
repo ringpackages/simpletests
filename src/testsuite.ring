@@ -35,6 +35,7 @@ class TestSuite
 
     func init cName
         name = cName
+        return self
 
     func setVerbose lFlag
         lVerbose = lFlag
