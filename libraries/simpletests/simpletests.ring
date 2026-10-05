@@ -1,5 +1,5 @@
 /*
-    SimpleTests - Testing Framework Prototype for the Ring Programming Language
+	SimpleTests - Testing Framework Prototype for the Ring Programming Language
 */
 
 load "src/globals.ring"
