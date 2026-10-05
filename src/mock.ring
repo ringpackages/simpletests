@@ -11,6 +11,7 @@ class Mock
 
     func init cName
         name = cName
+        return self
 
     func setReturn value
         add(returnVals, value)

@@ -14,6 +14,7 @@ class TestResult
 
     func init cName
         name = cName
+        return self
 
     func setPass
         status = TEST_PASS
