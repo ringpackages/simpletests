@@ -5,11 +5,11 @@ aPackageInfo = [
 	:developer = "Mahmoud Fayed",
 	:email = "msfclipper@yahoo.com",
 	:license = "MIT License",
-	:version = "1.0.0",
+	:version = "1.0.1",
 	:ringversion = "1.27",
 	:versions = 	[
 		[
-			:version = "1.0.0",
+			:version = "1.0.1",
 			:branch = "master"
 		]
 	],
@@ -26,14 +26,14 @@ aPackageInfo = [
 	],
 	:ringfolderfiles = 	[
 		"bin/load/simpletests.ring",
-		"libraries/simpletests.ring",
-		"libraries/src/assert.ring",
-		"libraries/src/benchmark.ring",
-		"libraries/src/functions.ring",
-		"libraries/src/globals.ring",
-		"libraries/src/mock.ring",
-		"libraries/src/testresult.ring",
-		"libraries/src/testsuite.ring",
+		"libraries/simpletests/simpletests.ring",
+		"libraries/simpletests/src/assert.ring",
+		"libraries/simpletests/src/benchmark.ring",
+		"libraries/simpletests/src/functions.ring",
+		"libraries/simpletests/src/globals.ring",
+		"libraries/simpletests/src/mock.ring",
+		"libraries/simpletests/src/testresult.ring",
+		"libraries/simpletests/src/testsuite.ring",
 		"samples/UsingSimpleTests/examples.ring",
 		"samples/UsingSimpleTests/test1.ring"
 	],
