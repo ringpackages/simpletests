@@ -38,51 +38,6 @@ func testMath
 
 ---
 
-## Assertion Reference
-
-### Equality
-- `assertEqual(actual, expected)` — Values are equal
-- `assertNotEqual(actual, notExpected)` — Values differ
-- `assertStrictEqual(actual, expected)` — Equal value AND type
-
-### Boolean
-- `assertTrue(value)` — Value is truthy
-- `assertFalse(value)` — Value is falsy
-
-### Null & Type
-- `assertNull(value)` — Value is NULL
-- `assertNotNull(value)` — Value is not NULL
-- `assertType(value, typeName)` — Type matches (e.g., "STRING")
-- `assertIsString(value)`, `assertIsNumber(value)`, `assertIsList(value)`
-
-### Numeric
-- `assertGreaterThan(a, b)`, `assertGreaterOrEqual(a, b)`
-- `assertLessThan(a, b)`, `assertLessOrEqual(a, b)`
-- `assertBetween(val, min, max)` — min <= val <= max
-- `assertApproxEqual(a, b, tolerance)` — |a - b| <= tolerance
-
-### String
-- `assertContains(str, substr)`, `assertNotContains(str, substr)`
-- `assertStartsWith(str, prefix)`, `assertEndsWith(str, suffix)`
-- `assertStringLength(str, n)`, `assertMatch(str, pattern)`
-- `assertEmpty(value)`, `assertNotEmpty(value)`
-
-### List
-- `assertListEqual(a, b)` — Same elements in order
-- `assertListContains(list, val)`, `assertListNotContains(list, val)`
-- `assertListLength(list, n)`, `assertListSorted(list)`
-
-### Exceptions
-- `assertRaises(funcName)` — Function raises an exception
-- `assertRaisesContaining(func, msg)` — Exception contains text
-- `assertNoError(funcName)` — No exception thrown
-
-### Custom
-- `fail(message)` — Unconditional failure
-- `assertWithMessage(condition, msg)` — Assert with custom message
-
----
-
 ## Suite Configuration
 
 ```ring
@@ -176,6 +131,51 @@ bench.compare("Approach A", "funcA", "Approach B", "funcB", 5000)
 **JSON**: `suite.setOutputFormat("json")` — Structured test results.
 
 **TAP**: `suite.setOutputFormat("tap")` — Test Anything Protocol for CI/CD.
+
+---
+
+## Assertion Reference
+
+### Equality
+- `assertEqual(actual, expected)` — Values are equal
+- `assertNotEqual(actual, notExpected)` — Values differ
+- `assertStrictEqual(actual, expected)` — Equal value AND type
+
+### Boolean
+- `assertTrue(value)` — Value is truthy
+- `assertFalse(value)` — Value is falsy
+
+### Null & Type
+- `assertNull(value)` — Value is NULL
+- `assertNotNull(value)` — Value is not NULL
+- `assertType(value, typeName)` — Type matches (e.g., "STRING")
+- `assertIsString(value)`, `assertIsNumber(value)`, `assertIsList(value)`
+
+### Numeric
+- `assertGreaterThan(a, b)`, `assertGreaterOrEqual(a, b)`
+- `assertLessThan(a, b)`, `assertLessOrEqual(a, b)`
+- `assertBetween(val, min, max)` — min <= val <= max
+- `assertApproxEqual(a, b, tolerance)` — |a - b| <= tolerance
+
+### String
+- `assertContains(str, substr)`, `assertNotContains(str, substr)`
+- `assertStartsWith(str, prefix)`, `assertEndsWith(str, suffix)`
+- `assertStringLength(str, n)`, `assertMatch(str, pattern)`
+- `assertEmpty(value)`, `assertNotEmpty(value)`
+
+### List
+- `assertListEqual(a, b)` — Same elements in order
+- `assertListContains(list, val)`, `assertListNotContains(list, val)`
+- `assertListLength(list, n)`, `assertListSorted(list)`
+
+### Exceptions
+- `assertRaises(funcName)` — Function raises an exception
+- `assertRaisesContaining(func, msg)` — Exception contains text
+- `assertNoError(funcName)` — No exception thrown
+
+### Custom
+- `fail(message)` — Unconditional failure
+- `assertWithMessage(condition, msg)` — Assert with custom message
 
 ---
 
