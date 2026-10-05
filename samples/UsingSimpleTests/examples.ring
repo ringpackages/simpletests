@@ -6,7 +6,7 @@ load "simpletests.ring"
 
 # --- Build the Test Suite ---
 
-suite = new TestSuite("RingTest Demo Suite")
+suite = new TestSuite("SimpleTests Demo Suite")
 
 suite.beforeAll("mySuiteSetup")
 suite.afterAll("mySuiteTeardown")
