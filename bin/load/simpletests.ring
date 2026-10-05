@@ -1,1 +1,1 @@
-load "../../libraries/simpletests/simpletests.ring"
+load package "../../libraries/simpletests/simpletests.ring"
